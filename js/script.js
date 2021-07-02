@@ -134,9 +134,38 @@ const checkIfWin = function () {
     if (word.toUpperCase() === wordInProgress.innerText) {
         message.classList.add("win");
         message.innerHTML = `<p class="highlight">You guessed the correct word! Congrats!</p>`;
+
+        //Call the startOver function when the game is over whether the player wins or loses.
+        startOver();
     }
 };
 
+//function to hide: the Guess button. the paragraph where the remaining guesses will display.the unordered list where the guessed letters appear. 
+const startOver = function () {
+    guessLetterButton.classList.add("hide");
+    remainingGuessesElement.classList.add("hide");
+    guessedLettersElement.classList.add("hide");
+    //Use the startOver function to show the button to play again.
+    playAgainButton.classList.remove("hide");
+  };
 
+  //Add a Click Event to the Play Again Button
+  playAgainButton.addEventListener("click", function () {
+  // reset all original values - grab new word
+  message.classList.remove("win");
+  guessedLetters = [];
+  remainingGuesses = 8;
+  remainingGuessesSpan.innerText = `${remainingGuesses} guesses`;
+  guessedLettersElement.innerHTML = "";
+  message.innerText = "";
+  // Grab a new word
+  getWord();
+
+  // show the right UI elements
+  guessLetterButton.classList.remove("hide");
+  playAgainButton.classList.add("hide");
+  remainingGuessesElement.classList.remove("hide");
+  guessedLettersElement.classList.remove("hide");
+});
 
 
